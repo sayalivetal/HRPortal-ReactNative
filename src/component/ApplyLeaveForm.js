@@ -28,16 +28,16 @@ import {
   faCalendarAlt,
   faPaperclip,
 } from '@fortawesome/free-solid-svg-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
+
 import DocumentPicker from 'react-native-document-picker';
 import {authSelector} from '../slices/Authslice';
 import LeaveTypeLabel from './LeaveTypeLabel';
 import {leaveSelector} from '../slices/LeaveSlice';
 import {leaveList} from '../slices/LeaveSlice';
+import DatePickers from './DatePicker';
 const DropdownComponent = () => {
   const {leaveData} = useSelector(leaveSelector);
-  // const {userData} = useSelector(authSelector);
-  console.log('fnsjdfnsjfjsgsjggjd', leaveData);
+  console.log('llllllllllllllllllllllll', leaveData);
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -47,98 +47,54 @@ const DropdownComponent = () => {
 
   const [todatePicker, setToDatePicker] = useState(false);
   const [fromdatePicker, setFromDatePicker] = useState(false);
-
-  const [todate, setToDate] = useState(new Date());
+  const [todate, setDateSelected] = useState(new Date());
   const [fromdate, setFromDate] = useState(new Date());
-  const [leaveData1, setLeaveData] = useState([]);
-  useEffect(() => {
-    let jwt = userData.token;
-    if (jwt) {
-      dispatch(leaveList(jwt)).then(data => {
-        console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkk', data?.payload?.data);
-        if (data?.payload?.data.length > 0) {
-          setLeaveData([...data?.payload?.data]);
-        }
-      });
-    }
-  }, [userData]);
-  console.log('HHHHHHHHHHHHHHHHHHHHHHHHHH', leaveData1);
-  function showDatePickerTo() {
+  const [finalLeaveData, setFinalLeaveData] = useState([]);
+  const showDatePickerTo = () => {
     setToDatePicker(true);
-  }
-  function showDatePickerFrom() {
+  };
+  const showDatePickerFrom = () => {
     setFromDatePicker(true);
-  }
-  function onDateSelectedTo(event, value) {
-    setToDate(value);
+  };
+  const onDateSelectedTo = (event, value) => {
+    setDateSelected(value);
     setToDatePicker(false);
-  }
-  function onDateSelectedFrom(event, value) {
+  };
+  const onDateSelectedFrom = (event, value) => {
     setFromDate(value);
     setFromDatePicker(false);
-  }
-  console.log('userData', userData);
-  const leaveArr = () => {
+  };
+  console.log('fffffffffffffffffffffffffff', todatePicker, fromdatePicker);
+
+  useEffect(() => {
     const leaveId = [];
     const leaveName = [];
-    var leaves = leaveData1;
+    var leaves = leaveData;
     leaves.map(val => {
       leaveId.push(val.id);
       leaveName.push(val.leave_type_name);
     });
-
     var finalObj = [];
-    for (var i = 0; i < leaveData1.length; i++) {
-      console.log(leaveData1[i]);
+    for (var i = 0; i < leaveData.length; i++) {
+      console.log(leaveData[i]);
       finalObj[i] = {
         label: leaveName[i],
         value: leaveId[i],
       };
     }
-    //  console.log(data.jwt);
-    return (
-      <View style={{marginTop: 15}}>
-        <View>
-          <Text style={{fontSize: 16, fontWeight: '600', color: '#13171A'}}>
-            Type
-          </Text>
-        </View>
-        <View>
-          <Dropdown
-            style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={finalObj}
-            search={false}
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder={!isFocus ? 'Select item' : '...'}
-            searchPlaceholder="Search..."
-            value={value}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={item => {
-              setValue(item.value);
-              setIsFocus(false);
-            }}
-          />
-        </View>
-      </View>
-    );
-  };
-  const renderLabel = () => {
-    if (value || isFocus) {
-      return (
-        <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-         Leave Type
-        </Text>
-      );
-    }
-    return null;
-  };
+    setFinalLeaveData([...finalObj]);
+  }, [leaveData]);
+  console.log('bbbbbbbbbbbbbbbbbbbbbbbbb', finalLeaveData);
+  // const renderLabel = () => {
+  //   if (value || isFocus) {
+  //     return (
+  //       <Text style={[styles.label, isFocus && {color: 'blue'}]}>
+  //         Leave Type
+  //       </Text>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   // const selectFile = async () => {
   //   try {
@@ -162,117 +118,34 @@ const DropdownComponent = () => {
   // };
 
   const reasonInput = () => {
-
-      return (
-        <View style={{backgroundColor:'#F4F5F7', marginTop:15, paddingVertical:12,}}>
-          <View style={{paddingHorizontal:12}}>
-            <Text style={{color:'#024E7D'}}>Reason</Text>
-            <TextInput numberOfLines={4} multiline={true} />
-          </View>
-          <View style={{paddingHorizontal:12}}>
+    return (
+      <View
+        style={{
+          backgroundColor: '#F4F5F7',
+          marginTop: 15,
+          paddingVertical: 12,
+        }}>
+        <View style={{paddingHorizontal: 12}}>
+          <Text style={{color: '#024E7D'}}>Reason</Text>
+          <TextInput numberOfLines={4} multiline={true} />
+        </View>
+        <View style={{paddingHorizontal: 12}}>
           <TouchableOpacity
             style={styles.buttonStyle}
             activeOpacity={0.5}
             // onPress={selectFile}
-            >
-          <FontAwesomeIcon icon={faPaperclip} size={16} style={{ color: "#657785", paddingVertical:18 }} />
+          >
+            <FontAwesomeIcon
+              icon={faPaperclip}
+              size={16}
+              style={{color: '#657785', paddingVertical: 18}}
+            />
           </TouchableOpacity>
-          </View>
         </View>
-      );
-
-  };
-
-  const datePickers = () => {
-    return (
-      <View styles={styles.MainContainer}>
-        <View style={styles.sectionStyle}>
-          <View style={{flexDirection: 'column'}}>
-            <View>
-              <Text style={{fontSize: 16, fontWeight: '600', color: '#13171A'}}>
-                From
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                borderWidth: 0.5,
-                borderRadius: 2,
-                borderColor: '#DBDBDB',
-                width: 150,
-                height: 35,
-                paddingHorizontal: 10,
-              }}>
-              <FontAwesomeIcon
-                icon={faCalendarAlt}
-                size={16}
-                style={{color: '#657785', paddingVertical: 18}}
-              />
-              <TextInput
-                placeholder="To"
-                underlineColorAndroid="transparent"
-                style={{paddingVertical: 1, color: '#657785', fontSize: 14}}
-                //editable={false}
-                onFocus={showDatePickerTo}
-                value={todate.toDateString()}
-              />
-            </View>
-          </View>
-          <View style={{flexDirection: 'column'}}>
-            <View>
-              <Text style={{fontSize: 16, fontWeight: '600', color: '#13171A'}}>
-                To
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                borderWidth: 0.5,
-                borderRadius: 2,
-                borderColor: '#DBDBDB',
-                width: 150,
-                height: 35,
-                paddingHorizontal: 10,
-              }}>
-              <FontAwesomeIcon
-                icon={faCalendarAlt}
-                size={16}
-                style={{color: '#657785', paddingVertical: 18}}
-              />
-              <TextInput
-                placeholder="From"
-                underlineColorAndroid="transparent"
-                style={{paddingVertical: 1, color: '#657785', fontSize: 14}}
-                //editable={false}
-                onFocus={showDatePickerFrom}
-                value={fromdate.toDateString()}
-              />
-            </View>
-          </View>
-        </View>
-        {todatePicker && (
-          <DateTimePicker
-            value={todate}
-            mode={'date'}
-            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-            is24Hour={true}
-            onChange={onDateSelectedTo}
-            style={styles.datePicker}
-          />
-        )}
-        {fromdatePicker && (
-          <DateTimePicker
-            value={fromdate}
-            mode={'date'}
-            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-            is24Hour={true}
-            onChange={onDateSelectedFrom}
-            style={styles.datePicker}
-          />
-        )}
       </View>
     );
   };
+
   // console.log(item.value);
   return (
     <View style={styles.container}>
@@ -281,11 +154,52 @@ const DropdownComponent = () => {
           {datePickers()}
          {leaveArr()}
           //  */}
-      
-        {datePickers()}
-         
-        {renderLabel()}
-        {leaveArr()}
+
+        <DatePickers
+          name="From"
+          showDatePicker={showDatePickerFrom}
+          fromdatePicker={fromdatePicker}
+          onDateSelectedFrom={onDateSelectedFrom}
+          fromdate={fromdate}
+        />
+        <DatePickers
+          name="To"
+          todate={todate}
+          showDatePicker={showDatePickerTo}
+          todatePicker={todatePicker}
+          onDateSelectedTo={onDateSelectedTo}
+        />
+        {/* {renderLabel()} */}
+        <View style={{marginTop: 15}}>
+          <View>
+            <Text style={{fontSize: 16, fontWeight: '600', color: '#13171A'}}>
+              Type
+            </Text>
+          </View>
+          <View>
+            <Dropdown
+              style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={finalLeaveData}
+              search={false}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? 'Select item' : '...'}
+              searchPlaceholder="Search..."
+              value={value}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setValue(item.value);
+                setIsFocus(false);
+              }}
+            />
+          </View>
+        </View>
         {reasonInput()}
       </View>
       <View style={{marginTop: 15, marginLeft: 250}}>
