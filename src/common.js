@@ -1,0 +1,1 @@
+export const apiUrl = "https://bd41-203-145-168-10.in.ngrok.io"

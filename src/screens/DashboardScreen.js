@@ -12,173 +12,175 @@ import { Card,Button } from 'react-native-elements';
 import Santa from "../Img/santa.svg";
 import Newyear from "../Img/newyear.svg";
 import ScrollingButtonMenu from 'react-native-scroll-menu';
+import LeaveTypeLabel from '../component/LeaveTypeLabel';
 
 export default function Dashboard({ navigation }) {
-  const data = useSelector(state => state.userReducer);
-  console.log(data);
-  const dispatch = useDispatch();
-  const [Enable , setEnable]  = useState(false);
-  const [leaveId, setLeaveId] = useState(null)
+  alert("dhgfghsd")
+  //const data = useSelector(state => state.userReducer);
+  //console.log(data);
+  // const dispatch = useDispatch();
+  // const [Enable , setEnable]  = useState(false);
+  // const [leaveId, setLeaveId] = useState(null)
   // const apiUrl = data.appUrl;
-  const ViewDetails = (e,id,taskname) =>{
-    // setLeaveDetailId(id)
-    console.log(id);
-    console.log(taskname);
-    dispatch(setReportId(id));
-    dispatch(setReportName(taskname));
+//   const ViewDetails = (e,id,taskname) =>{
+//     // setLeaveDetailId(id)
+//     console.log(id);
+//     console.log(taskname);
+//     dispatch(setReportId(id));
+//     dispatch(setReportName(taskname));
     
-    console.log('ddd');
+//     console.log('ddd');
 
-}
-  const handleLeaveData = (leavedata) =>{
-    setLeaveId(leavedata.id)
-  }
-  const toggle = (state)=>{
-    setEnable(state);
-  }
-  const leaveTypeLabel =() =>{
-    const leaveIds =[];
-    const leaveName =[];
-    var leaves = data.leavetypes;
-    const ids = leaves.map((val) =>
-    leaveIds.push(val.id),
-    );
-    const name = leaves.map((name) =>
-    leaveName.push(name.leave_type_name),
-    );
-    var finalObj = [];
-    for(var i = 0; i < leaveIds.length; i++){
-      finalObj[i] = {
-        id: leaveIds[i],
-        name:leaveName[i] ,
+// }
+//   const handleLeaveData = (leavedata) =>{
+//     setLeaveId(leavedata.id)
+//   }
+//   const toggle = (state)=>{
+//     setEnable(state);
+//   }
+//   const leaveTypeLabel =() =>{
+//     const leaveIds =[];
+//     const leaveName =[];
+//     var leaves = data.leavetypes;
+//     const ids = leaves.map((val) =>
+//     leaveIds.push(val.id),
+//     );
+//     const name = leaves.map((name) =>
+//     leaveName.push(name.leave_type_name),
+//     );
+//     var finalObj = [];
+//     for(var i = 0; i < leaveIds.length; i++){
+//       finalObj[i] = {
+//         id: leaveIds[i],
+//         name:leaveName[i] ,
         
-      }
-       }
-       return (
-        <ScrollingButtonMenu buttonStyle={{width: 80, height:35, borderRadius: 20, borderColor:"#D4EEFF", backgroundColor:"#D4EEFF", marginHorizontal: 5}}
-        textStyle={{ color: '#024E7D', fontFamily:'Proxima Nova,Semibold', fontSize: 14, fontWeight: 'bold', textAlign:'center', justifyContent: 'center'}}
-        activeColor = '#D4EEFF'
-        activeBackgroundColor= '#024E7D'
-           items={finalObj}
-          onPress={handleLeaveData}
-          selected={leaveId}
-      />
-       );
-  }
-  const leaveLists = () => {
+//       }
+//        }
+//        return (
+//         <ScrollingButtonMenu buttonStyle={{width: 80, height:35, borderRadius: 20, borderColor:"#D4EEFF", backgroundColor:"#D4EEFF", marginHorizontal: 5}}
+//         textStyle={{ color: '#024E7D', fontFamily:'Proxima Nova,Semibold', fontSize: 14, fontWeight: 'bold', textAlign:'center', justifyContent: 'center'}}
+//         activeColor = '#D4EEFF'
+//         activeBackgroundColor= '#024E7D'
+//            items={finalObj}
+//           onPress={handleLeaveData}
+//           selected={leaveId}
+//       />
+//        );
+//   }
+//   const leaveLists = () => {
         
-    const users = data.leavelist;
-    // console.log('users');
-    return ( 
+//     const users = data.leavelist;
+//     // console.log('users');
+//     return ( 
    
-      <View style={{flexDirection: "row"}}>
-        {
-      users.map((u, i) => {
-        return (
-          <Card width={164} height={91} borderRadius={5} containerStyle={{elevation:0.5,backgroundColor:'#F8F8F8',marginLeft: 1}} >
-          {
-            <View style={{flexDirection: "column"}}>
-              <Text style={{width:'100%', fontSize:14, textAlign:"left", color: '#657785', fontFamily:'Proxima Nova,Semibold', fontWeight:"normal"}}>Full Day Application</Text>
-              <Text style={{fontSize:18, color: '#13171A', fontFamily:'Proxima Nova,Semibold', fontWeight: 'bold'}}>{u.from_date}</Text>
-              <Text style={{color: '#CB823B', fontFamily:'Proxima Nova,Semibold', fontSize: 14, fontWeight: 'bold'}}>{u.leave_type_name}</Text>
-            </View>
+//       <View style={{flexDirection: "row"}}>
+//         {
+//       users.map((u, i) => {
+//         return (
+//           <Card width={164} height={91} borderRadius={5} containerStyle={{elevation:0.5,backgroundColor:'#F8F8F8',marginLeft: 1}} >
+//           {
+//             <View style={{flexDirection: "column"}}>
+//               <Text style={{width:'100%', fontSize:14, textAlign:"left", color: '#657785', fontFamily:'Proxima Nova,Semibold', fontWeight:"normal"}}>Full Day Application</Text>
+//               <Text style={{fontSize:18, color: '#13171A', fontFamily:'Proxima Nova,Semibold', fontWeight: 'bold'}}>{u.from_date}</Text>
+//               <Text style={{color: '#CB823B', fontFamily:'Proxima Nova,Semibold', fontSize: 14, fontWeight: 'bold'}}>{u.leave_type_name}</Text>
+//             </View>
         
-          }
-        </Card>
-);
-})
-}
-      </View>
+//           }
+//         </Card>
+// );
+// })
+// }
+//       </View>
     
-    );
+//     );
   
-  }
+//   }
  
-  const taskList = () => {
+//   const taskList = () => {
 
         
-    const tList = data.tasklist;
+//     const tList = data.tasklist;
     
-    // console.log('users');
-    return ( 
+//     // console.log('users');
+//     return ( 
    
-      <View>
-        {
-      tList.map((t, i) => {
-        return (
-          <View style={{flexDirection: "row"}}>
+//       <View>
+//         {
+//       tList.map((t, i) => {
+//         return (
+//           <View style={{flexDirection: "row"}}>
           
-                  <Card width={348} height={54} borderRadius={4} containerStyle={{elevation:0.5,backgroundColor:'#FFF',marginLeft: 1, borderColor:'#DBDBDB'}} >
-                    {
-                      <View style={{flexDirection: "row", justifyContent:'space-between'}}>
-                          <Text style={{fontSize:16, fontFamily:'Proxima Nova, Regular'}}>{t.title}</Text>
-                          <Button 
-                            title="Report"
-                            buttonStyle={{ backgroundColor: '#1DA1F2' }}
-                            containerStyle={{
-                              width: 72,
-                              height:36,
-                              marginTop:-5,
-                              borderRadius: 30,
+//                   <Card width={348} height={54} borderRadius={4} containerStyle={{elevation:0.5,backgroundColor:'#FFF',marginLeft: 1, borderColor:'#DBDBDB'}} >
+//                     {
+//                       <View style={{flexDirection: "row", justifyContent:'space-between'}}>
+//                           <Text style={{fontSize:16, fontFamily:'Proxima Nova, Regular'}}>{t.title}</Text>
+//                           <Button 
+//                             title="Report"
+//                             buttonStyle={{ backgroundColor: '#1DA1F2' }}
+//                             containerStyle={{
+//                               width: 72,
+//                               height:36,
+//                               marginTop:-5,
+//                               borderRadius: 30,
                               
-                            }}
-                            onPress={(e) => ViewDetails(e,t.id,t.title)}
-                            titleStyle={{ color: '#E1F3FF', fontFamily:'Proxima Nova,Semibold', fontSize: 14 }}
-                          />
-                      </View>
-                    }
-                  </Card>
-                </View>
-);
-})
-}
-      </View>
+//                             }}
+//                             onPress={(e) => ViewDetails(e,t.id,t.title)}
+//                             titleStyle={{ color: '#E1F3FF', fontFamily:'Proxima Nova,Semibold', fontSize: 14 }}
+//                           />
+//                       </View>
+//                     }
+//                   </Card>
+//                 </View>
+// );
+// })
+// }
+//       </View>
     
-    );
+//     );
   
-  }
+//   }
   
-  if(Enable == true){
+//   if(Enable == true){
     
-      const checkedIn = async() =>{
-        try{
-          const response = await fetch(`${apiUrl}/api/checkin-checkout/checkin`,{
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${data.jwt}` },
-             body: JSON.stringify({})
-          });
+//       const checkedIn = async() =>{
+//         try{
+//           const response = await fetch(`${apiUrl}/api/checkin-checkout/checkin`,{
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${data.jwt}` },
+//              body: JSON.stringify({})
+//           });
        
-          const result = await response.json();
-          }
-          catch(err) {
-            throw err;
-            console.log(err);
-          }
+//           const result = await response.json();
+//           }
+//           catch(err) {
+//             throw err;
+//             console.log(err);
+//           }
          
-      };
+//       };
 
-      checkedIn()
-  } else {
-      const checkedOut = async() =>{
+//       checkedIn()
+//   } else {
+//       const checkedOut = async() =>{
       
-        try{
-          const response = await fetch(`${apiUrl}/api/checkin-checkout/checkout`,{
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${data.jwt}` },
-             body: JSON.stringify({})
-          });
+//         try{
+//           const response = await fetch(`${apiUrl}/api/checkin-checkout/checkout`,{
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${data.jwt}` },
+//              body: JSON.stringify({})
+//           });
        
-          const result = await response.json();
-          }
-          catch(err) {
-            throw err;
-            console.log(err);
-          }
+//           const result = await response.json();
+//           }
+//           catch(err) {
+//             throw err;
+//             console.log(err);
+//           }
          
-      };
+//       };
 
-      checkedOut()
-  }
+//       checkedOut()
+//   }
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
       <View style={styles.container}>
@@ -190,8 +192,8 @@ export default function Dashboard({ navigation }) {
           disabled={false}
           width={50}
           radius={15}
-          onValueChange={toggle}
-          value={Enable}
+         // onValueChange={toggle}
+          //value={Enable}
         />
       </View>
         <View style={styles.topContainer}>
@@ -200,18 +202,19 @@ export default function Dashboard({ navigation }) {
             {
               <View>
               <View style={{flexDirection: "row", marginTop:-20, marginLeft:-20 }}>
-              {leaveTypeLabel()}
+              {/* {leaveTypeLabel()} */}
+              <LeaveTypeLabel />
               </View>
              
                 <ScrollView horizontal={true}>
-                {leaveLists()}
+                {/* {leaveLists()} */}
                 </ScrollView>
               </View>
               
             }
           </Card>
         </View>
-        <View style={[styles.topContainer]}>
+        {/* <View style={[styles.topContainer]}>
           <Card width={380} height={212} borderRadius={4} containerStyle={{elevation:0}} >
             <Card.Title style={{width:'100%', fontSize:20,textAlign:"left"}}>Today's Task </Card.Title>
             {
@@ -263,7 +266,7 @@ export default function Dashboard({ navigation }) {
               
             }
           </Card>
-        </View>
+        </View> */}
         
     </ScrollView>
   )

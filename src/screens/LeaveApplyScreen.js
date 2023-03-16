@@ -1,45 +1,42 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 // Import core components
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
-import { useSelector, useDispatch, setAttendence } from 'react-redux';
- import DropdownComponent from '../component/ApplyLeaveForm';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {useSelector, useDispatch, setAttendence} from 'react-redux';
+import DropdownComponent from '../component/ApplyLeaveForm';
 // Import Document Picker
 import DocumentPicker from 'react-native-document-picker';
+import {authSelector} from '../slices/Authslice';
 
 const LeaveApplyScreen = () => {
-  const datass = useSelector(state => state.userReducer);
-  const apiUrl = datass.appUrl;
+  const {userData} = useSelector(authSelector);
+  //const apiUrl = datass.appUrl;
   const [singleFile, setSingleFile] = useState(null);
   const uploadImage = async () => {
+    alert('fjsgfhsgfhsgfhgshfgs');
     if (singleFile != null) {
-      console.log('ddddd',singleFile);
+      console.log('ddddd', singleFile);
       const fileToUpload = singleFile;
       const data = new FormData();
-      data.append('leave_type_id','2');
-      data.append('from_date','01/05/2022');
-      data.append('to_date','08/05/2022');
-      data.append('reasons','test');
+      data.append('leave_type_id', '2');
+      data.append('from_date', '01/05/2022');
+      data.append('to_date', '08/05/2022');
+      data.append('reasons', 'test');
       let obj = {};
       obj['leave_type_id'] = '2';
       obj['from_date'] = '01/05/2022';
       obj['to_date'] = '08/05/2022';
       obj['reasons'] = 'dsdsssssssss';
-      console.log(obj);
-      let res = await fetch(
-        `${apiUrl}/api/leaves/leaves/store`,
-        {
-          method: 'post',
-          body: obj,
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${datass.jwt}` },
-        }
-      );
+      console.log('ffffffffffffffffffffffffffffffffffff', obj);
+      let res = await fetch(`${apiUrl}/api/leaves/leaves/store`, {
+        method: 'post',
+        body: obj,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userData.jwt}`,
+        },
+      });
       let responseJson = await res.json();
-      console.log(responseJson);
+      console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', responseJson);
       if (responseJson.status == 1) {
         alert('Upload Successful');
       }
@@ -47,12 +44,10 @@ const LeaveApplyScreen = () => {
       alert('Please Select File first');
     }
   };
- 
+
   const selectFile = async () => {
     try {
-    
       const res = await DocumentPicker.pick({
-        
         type: [DocumentPicker.types.allFiles],
       });
       console.log('res : ' + JSON.stringify(res));
@@ -69,22 +64,21 @@ const LeaveApplyScreen = () => {
     }
   };
   return (
-    <View  style={styles.container}>
+    <View style={styles.container}>
       <View>
-      <DropdownComponent />
+        <DropdownComponent />
       </View>
     </View>
   );
 };
- 
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     width: 360,
-    height:400,
+    height: 400,
     marginTop: 35,
     marginLeft: 16,
-    
   },
   mainBody: {
     flex: 1,
@@ -117,5 +111,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
- 
+
 export default LeaveApplyScreen;

@@ -1,11 +1,12 @@
 export default {
     firebaseConfig: {
-        apiKey: "AIzaSyBEyAZTZal46WFt-IV1y3yENJ31J_swMG8",
-        authDomain: "native-2484d.firebaseapp.com",
-        projectId: "native-2484d",
-        storageBucket: "native-2484d.appspot.com",
-        messagingSenderId: "1040528052761",
-        appId: "1:1040528052761:web:e4b50f863e0a5c04a99088",
-        measurementId: "G-D8Y91K6K7Q"
+        apiKey: "AIzaSyCCevjDK9MjY_OW2rhFLiRiiyiD35ObQyE",
+        authDomain: "hrportal-d0662.firebaseapp.com",
+        databaseURL: "https://hrportal-d0662-default-rtdb.firebaseio.com",
+        projectId: "hrportal-d0662",
+        storageBucket: "hrportal-d0662.appspot.com",
+        messagingSenderId: "590753174561",
+        appId: "1:590753174561:web:1030c62a2781ff8e38ff60",
+        measurementId: "G-4QYSM5M1K6"
     }
   }

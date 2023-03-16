@@ -53,10 +53,7 @@ export default function App() {
           <Drawer.Screen name="Report Submit" component={ReportSubmitScreen} options={{ headerShown: true,headerTitle:()=>null }}/>
           <Drawer.Screen name="Announcement" component={AnnouncementScreen} options={{ headerShown: true,headerTitle:()=>null }}/>
           <Drawer.Screen name="Tasks History" component={TaskHistoryScreen} options={{ headerShown: true,headerTitle:()=>null }}/>
-          <Drawer.Screen name="Events" component={EventsScreen} options={{ headerShown: true,headerTitle:()=>null }}/>
-          
-          
-          
+          <Drawer.Screen name="Events" component={EventsScreen} options={{ headerShown: true,headerTitle:()=>null }}/>    
         </Drawer.Navigator>
     </NavigationContainer>
     </Provider>
